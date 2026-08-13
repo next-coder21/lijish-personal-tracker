@@ -1,0 +1,296 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useLijiTable } from "@liji-table/react";
+import type { TableColumn } from "@liji-table/core";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronsUpDownIcon,
+  DownloadIcon,
+  RotateCcwIcon,
+  SearchIcon,
+  SlidersHorizontalIcon,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+
+export interface DataTableColumn<T> extends TableColumn {
+  /** Custom cell renderer. Falls back to the raw field value. */
+  cell?: (row: T) => React.ReactNode;
+}
+
+/**
+ * A styled shell around the headless `useLijiTable` engine: search, sorting,
+ * column show/hide, drag-reorder, resize, layout persistence, pagination and
+ * CSV export. The engine owns all the logic; everything here is presentation.
+ */
+export function DataTable<T extends { id: string }>({
+  data,
+  columns,
+  persistKey,
+  searchPlaceholder = "Search…",
+  csvName,
+  pageSize = 12,
+  emptyMessage = "Nothing here yet.",
+  toolbar,
+  rowActions,
+}: {
+  data: T[];
+  columns: DataTableColumn<T>[];
+  persistKey: string;
+  searchPlaceholder?: string;
+  csvName?: string;
+  pageSize?: number;
+  emptyMessage?: string;
+  toolbar?: React.ReactNode;
+  rowActions?: (row: T) => React.ReactNode;
+}) {
+  // `useLijiTable` snapshots its column list on construction, so the engine only
+  // ever sees the very first definitions. Freeze them in a ref so a re-render
+  // that rebuilds the `columns` array can't quietly diverge from what the engine
+  // holds — cell renderers are looked up separately and stay live.
+  const [columnDefs] = useState<TableColumn[]>(() =>
+    columns.map(({ cell, ...col }) => {
+      void cell;
+      return col;
+    }),
+  );
+
+  const renderers = useMemo(() => {
+    const map = new Map<string, (row: T) => React.ReactNode>();
+    for (const c of columns) if (c.cell) map.set(c.id, c.cell);
+    return map;
+  }, [columns]);
+
+  // `containerRef` is pulled out on its own: the rest of the returned object is
+  // plain render data, and keeping the ref separate stops it being treated as a
+  // ref read every time a column or page value is used.
+  const { containerRef, ...table } = useLijiTable<T>(data, columnDefs, {
+    persistKey,
+    autoPersist: true,
+    reservedWidth: rowActions ? 64 : 0,
+  });
+
+  const { setPageSize } = table;
+  const appliedPageSize = useRef(false);
+  useEffect(() => {
+    if (appliedPageSize.current) return;
+    appliedPageSize.current = true;
+    setPageSize(pageSize);
+  }, [setPageSize, pageSize]);
+
+  const rows = table.rows as T[];
+  const { pageIndex } = table.state;
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="relative min-w-48 flex-1">
+          <SearchIcon className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            aria-label="Search table"
+            placeholder={searchPlaceholder}
+            defaultValue={table.state.globalSearch}
+            onChange={(e) => table.setSearch(e.target.value)}
+            className="pl-8"
+          />
+        </div>
+
+        {toolbar}
+
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="outline" size="sm">
+                <SlidersHorizontalIcon className="size-4" />
+                Columns
+              </Button>
+            }
+          />
+          <DropdownMenuContent align="end" className="w-52">
+            <DropdownMenuLabel>Visible columns</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {table.allColumns.map((col) => (
+              <DropdownMenuCheckboxItem
+                key={col.id}
+                checked={!col.hidden}
+                onCheckedChange={() => table.toggleVisibility(col.id)}
+              >
+                {col.label}
+              </DropdownMenuCheckboxItem>
+            ))}
+            <DropdownMenuSeparator />
+            <div className="p-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start"
+                onClick={() => table.resetLayout()}
+              >
+                <RotateCcwIcon className="size-4" />
+                Reset layout
+              </Button>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {csvName ? (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.downloadCSV(csvName)}
+          >
+            <DownloadIcon className="size-4" />
+            CSV
+          </Button>
+        ) : null}
+      </div>
+
+      <div
+        ref={containerRef as React.RefObject<HTMLDivElement>}
+        className="overflow-x-auto rounded-xl border border-border bg-card"
+      >
+        <table className="w-full table-fixed border-collapse text-sm">
+          <thead>
+            <tr className="border-b border-border">
+              {table.visibleColumns.map((col, index) => {
+                const sorted = table.state.sortColumn === col.id;
+                const dir = table.state.sortDirection;
+                return (
+                  <th
+                    key={col.id}
+                    {...table.getHeaderProps(index, col.id)}
+                    style={{ width: table.computedColumnWidths[col.id] }}
+                    className={cn(
+                      "group relative select-none px-3 py-2.5 text-left align-middle text-xs font-medium text-muted-foreground",
+                      col.align === "right" && "text-right",
+                      col.align === "center" && "text-center",
+                    )}
+                  >
+                    <button
+                      type="button"
+                      disabled={!col.sortable}
+                      onClick={() => col.sortable && table.toggleSort(col.id)}
+                      className={cn(
+                        "inline-flex max-w-full items-center gap-1 truncate",
+                        col.sortable && "hover:text-foreground",
+                        !col.sortable && "cursor-default",
+                      )}
+                    >
+                      <span className="truncate">{col.label}</span>
+                      {col.sortable ? (
+                        sorted && dir ? (
+                          dir === "asc" ? (
+                            <ArrowUpIcon className="size-3 shrink-0 text-foreground" />
+                          ) : (
+                            <ArrowDownIcon className="size-3 shrink-0 text-foreground" />
+                          )
+                        ) : (
+                          <ChevronsUpDownIcon className="size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-60" />
+                        )
+                      ) : null}
+                    </button>
+                    <span
+                      {...table.getResizerProps(col.id)}
+                      aria-hidden
+                      className="absolute right-0 top-0 h-full w-1.5 cursor-col-resize opacity-0 transition-opacity hover:bg-ring/40 group-hover:opacity-100"
+                    />
+                  </th>
+                );
+              })}
+              {rowActions ? <th className="w-16 px-3 py-2.5" /> : null}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={table.visibleColumns.length + (rowActions ? 1 : 0)}
+                  className="px-3 py-12 text-center text-sm text-muted-foreground"
+                >
+                  {emptyMessage}
+                </td>
+              </tr>
+            ) : (
+              rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="border-b border-border/70 last:border-0 hover:bg-accent/40"
+                >
+                  {table.visibleColumns.map((col) => {
+                    const render = renderers.get(col.id);
+                    return (
+                      <td
+                        key={col.id}
+                        style={{ width: table.computedColumnWidths[col.id] }}
+                        className={cn(
+                          "px-3 py-2.5 align-middle",
+                          col.align === "right" && "text-right",
+                          col.align === "center" && "text-center",
+                        )}
+                      >
+                        {render
+                          ? render(row)
+                          : formatCell((row as Record<string, unknown>)[col.id])}
+                      </td>
+                    );
+                  })}
+                  {rowActions ? (
+                    <td className="w-16 px-3 py-2.5 text-right">{rowActions(row)}</td>
+                  ) : null}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {table.totalPages > 1 ? (
+        <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground">
+          <span className="num">
+            Page {pageIndex + 1} of {table.totalPages}
+          </span>
+          <div className="flex items-center gap-1.5">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={pageIndex === 0}
+              onClick={() => table.prevPage()}
+            >
+              <ChevronLeftIcon className="size-4" />
+              Prev
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={pageIndex >= table.totalPages - 1}
+              onClick={() => table.nextPage()}
+            >
+              Next
+              <ChevronRightIcon className="size-4" />
+            </Button>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function formatCell(value: unknown) {
+  if (value === null || value === undefined || value === "") return "—";
+  if (typeof value === "boolean") return value ? "Yes" : "No";
+  return String(value);
+}
