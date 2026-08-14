@@ -6,12 +6,13 @@ import type { TrackerData } from "@/lib/types";
  * `version`, which tracks the shape of the data rather than its content and can
  * be stamped forward by an ordinary write while the content is still stale.
  */
-export const SEED_REVISION = 5;
+export const SEED_REVISION = 6;
 
 /** Day 1 of the programme, as logged in the original workbook. */
 export const DAY_ONE = "2026-08-11";
 export const DAY_TWO = "2026-08-12";
 export const DAY_THREE = "2026-08-13";
+export const DAY_FOUR = "2026-08-14";
 
 /**
  * The programme so far, carried over from the source workbooks.
@@ -25,6 +26,10 @@ export const DAY_THREE = "2026-08-13";
  * revised the Topic Master wholesale — new targets, priorities and statuses —
  * which is applied below, and added the Formula & Shortcuts sheet now served at
  * `/formulas` (see `lib/formulas.ts`).
+ * Day 4 — `Competitive_Exam_Training_Tracker_Day4_Enhanced.xlsx`: eight blocks
+ * over four sessions, 40 questions, 39 correct (97.5%), plus nine additions to
+ * the formula sheet covering time & work, time-speed-distance and simple
+ * interest.
  *
  * `Day_2_Elite_Report.xlsx` was an interim snapshot of the same day (25
  * questions, coarser topics, one ~20-minute total). The completed workbook
@@ -535,6 +540,104 @@ export const seedData: TrackerData = {
       score: 4,
       notes: "Collective noun error",
     },
+
+    // --- Day 4 · 39/40 across four sessions --------------------------------
+    {
+      id: "seed-d4-1",
+      date: DAY_FOUR,
+      session: "Session 1",
+      subject: "Quantitative Aptitude",
+      topic: "Time & Work",
+      attempted: 6,
+      correct: 5,
+      difficulty: "Easy-Moderate",
+      score: 4.5,
+      notes: "One combined-work mistake",
+    },
+    {
+      id: "seed-d4-2",
+      date: DAY_FOUR,
+      session: "Session 1",
+      subject: "Reasoning",
+      topic: "Number Series",
+      attempted: 2,
+      correct: 2,
+      difficulty: "Easy",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d4-3",
+      date: DAY_FOUR,
+      session: "Session 1",
+      subject: "English",
+      topic: "Grammar Basics",
+      attempted: 2,
+      correct: 2,
+      difficulty: "Easy",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d4-4",
+      date: DAY_FOUR,
+      session: "Session 2",
+      subject: "Quantitative Aptitude",
+      topic: "Time, Speed & Distance",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Easy",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d4-5",
+      date: DAY_FOUR,
+      session: "Session 3",
+      subject: "Quantitative Aptitude",
+      topic: "Simple Interest",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Easy",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d4-6",
+      date: DAY_FOUR,
+      session: "Final Session",
+      subject: "Quantitative Aptitude",
+      topic: "Mixed Arithmetic",
+      attempted: 4,
+      correct: 4,
+      difficulty: "Easy",
+      score: 5,
+      notes: "Perfect final set",
+    },
+    {
+      id: "seed-d4-7",
+      date: DAY_FOUR,
+      session: "Final Session",
+      subject: "Reasoning",
+      topic: "Mixed Series",
+      attempted: 3,
+      correct: 3,
+      difficulty: "Easy",
+      score: 5,
+      notes: "Perfect final set",
+    },
+    {
+      id: "seed-d4-8",
+      date: DAY_FOUR,
+      session: "Final Session",
+      subject: "English",
+      topic: "Grammar Basics",
+      attempted: 3,
+      correct: 3,
+      difficulty: "Easy",
+      score: 5,
+      notes: "Perfect final set",
+    },
   ],
   topics: [
     {
@@ -762,9 +865,9 @@ export const seedData: TrackerData = {
       subject: "Quantitative Aptitude",
       topic: "Mixed Arithmetic",
       status: "Strong",
-      targetAccuracy: 0.85,
+      targetAccuracy: 0.9,
       priority: "Low",
-      notes: "Mixed drill, not a syllabus topic",
+      notes: "Perfect final sets on Day 3 and Day 4",
     },
     {
       id: "seed-t28",
@@ -774,6 +877,34 @@ export const seedData: TrackerData = {
       targetAccuracy: 0.8,
       priority: "High",
       notes: "Committee has/have confusion",
+    },
+    // --- Topics first practised on Day 4 -------------------------------------
+    {
+      id: "seed-t29",
+      subject: "Quantitative Aptitude",
+      topic: "Time & Work",
+      status: "Strong",
+      targetAccuracy: 0.9,
+      priority: "Medium",
+      notes: "One combined-work mistake",
+    },
+    {
+      id: "seed-t30",
+      subject: "Quantitative Aptitude",
+      topic: "Time, Speed & Distance",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "Perfect Day 4",
+    },
+    {
+      id: "seed-t31",
+      subject: "Quantitative Aptitude",
+      topic: "Simple Interest",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "Perfect Day 4",
     },
   ],
   sessions: [
@@ -814,6 +945,17 @@ export const seedData: TrackerData = {
       improvementArea:
         "Profit & Loss accuracy, discount, English collective nouns",
       nextAction: "Day 3 completed; start Day 4 Time & Work and SI/CI",
+    },
+    {
+      id: "seed-s4",
+      date: DAY_FOUR,
+      sessionType: "Full Day",
+      plannedFocus:
+        "Session 1 + Session 2 + Session 3 + Final Session — Time & Work, Time-Speed-Distance, Simple Interest, Reasoning, English",
+      completed: true,
+      keyStrength: "TSD, SI, reasoning, English",
+      improvementArea: "Combined-work interpretation",
+      nextAction: "Day 4 completed; start Day 5",
     },
   ],
 };

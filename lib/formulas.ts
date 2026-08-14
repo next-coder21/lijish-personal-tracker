@@ -116,6 +116,42 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
       { concept: "7³", formula: "343" },
     ],
   },
+  // The Day 4 workbook appends these under one "DAY 4 ADDITIONS" heading. They
+  // cover three distinct topics, so they are split three ways here — that is
+  // what lets each score against its own topic like every other section.
+  {
+    id: "time-and-work",
+    title: "Time & work",
+    subject: "Quantitative Aptitude",
+    topics: ["Time & Work"],
+    entries: [
+      { concept: "Together (two people)", formula: "1/T = 1/a + 1/b" },
+      { concept: "Together (three people)", formula: "1/T = 1/a + 1/b + 1/c" },
+    ],
+  },
+  {
+    id: "time-speed-distance",
+    title: "Time, speed & distance",
+    subject: "Quantitative Aptitude",
+    topics: ["Time, Speed & Distance"],
+    entries: [
+      { concept: "Speed", formula: "Distance ÷ Time" },
+      { concept: "Distance", formula: "Speed × Time" },
+      { concept: "Time", formula: "Distance ÷ Speed" },
+      { concept: "km/h → m/s", formula: "× 5/18" },
+      { concept: "m/s → km/h", formula: "× 18/5" },
+    ],
+  },
+  {
+    id: "simple-interest",
+    title: "Simple interest",
+    subject: "Quantitative Aptitude",
+    topics: ["Simple Interest"],
+    entries: [
+      { concept: "Simple Interest", formula: "P × R × T / 100" },
+      { concept: "Amount", formula: "P + SI" },
+    ],
+  },
   {
     id: "time-savers",
     title: "Time savers",
