@@ -184,7 +184,7 @@ export default function DashboardPage() {
           value={String(streak)}
           unit={streak === 1 ? "day" : "days"}
           accent="var(--chart-4)"
-          hint={`best run ${best} day${best === 1 ? "" : "s"}`}
+          hint={`best run ${best} · weekends off don't break it`}
         />
         <StatTile
           label="Avg block score"
