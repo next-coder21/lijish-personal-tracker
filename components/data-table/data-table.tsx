@@ -20,6 +20,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -121,17 +122,20 @@ export function DataTable<T extends { id: string }>({
             }
           />
           <DropdownMenuContent align="end" className="w-52">
-            <DropdownMenuLabel>Visible columns</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {table.allColumns.map((col) => (
-              <DropdownMenuCheckboxItem
-                key={col.id}
-                checked={!col.hidden}
-                onCheckedChange={() => table.toggleVisibility(col.id)}
-              >
-                {col.label}
-              </DropdownMenuCheckboxItem>
-            ))}
+            {/* Base UI requires a group around the label — a bare GroupLabel throws. */}
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Visible columns</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {table.allColumns.map((col) => (
+                <DropdownMenuCheckboxItem
+                  key={col.id}
+                  checked={!col.hidden}
+                  onCheckedChange={() => table.toggleVisibility(col.id)}
+                >
+                  {col.label}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <div className="p-1">
               <Button

@@ -2,7 +2,9 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* One of the five palettes is the dark one, so `dark:` keys off its class.
+   next-themes writes a single class token, so there is no separate `dark`. */
+@custom-variant dark (&:is(.theme-focus-dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -29,6 +31,7 @@
   --color-warning: var(--status-warning);
   --color-serious: var(--status-serious);
   --color-critical: var(--status-critical);
+  --color-info: var(--status-info);
   --color-grid: var(--viz-grid);
   --color-axis: var(--viz-axis);
   --color-ring: var(--ring);
@@ -57,96 +60,314 @@
 }
 
 /*
-  Surfaces + ink follow the validated data-viz reference palette so charts sit on
-  the exact surface their contrast was measured against.
-  Light chart surface #fcfcfb / page plane #f9f9f7 · dark #1a1a19 / #0d0d0d.
+  ---------------------------------------------------------------------------
+  Themes
+  ---------------------------------------------------------------------------
+  Five complete palettes rather than a light/dark pair — "Deep Focus Dark" is
+  simply the dark one, and picking a palette is the only appearance control.
+  Each fills the same role set: background, surface, text, muted text, border,
+  primary, secondary, accent, and the four status colours.
+
+  Two things are held constant across all five, on purpose:
+
+  · The seven categorical series colours. Subject identity has to survive a
+    theme change, and a hue set that is colourblind-separable takes more than
+    the three or four hues a UI palette supplies. Validated against every one
+    of these surfaces: lightness band, chroma floor, CVD separation and the
+    normal-vision floor all pass on each.
+  · Nothing else. Every ordinal ramp below is stepped from its own palette's
+    primary hue and validated against that palette's own card surface.
 */
-:root {
-  --background: #f9f9f7;
-  --foreground: #0b0b0b;
-  --card: #fcfcfb;
-  --card-foreground: #0b0b0b;
-  --popover: #fcfcfb;
-  --popover-foreground: #0b0b0b;
-  --primary: #1c5cab;
-  --primary-foreground: #fcfcfb;
-  --secondary: #f0efec;
-  --secondary-foreground: #0b0b0b;
-  --muted: #f0efec;
-  --muted-foreground: #52514e;
-  --accent: #eceae5;
-  --accent-foreground: #0b0b0b;
-  --destructive: #d03b3b;
-  --border: rgba(11, 11, 11, 0.1);
-  --input: rgba(11, 11, 11, 0.14);
-  --ring: #2a78d6;
+
+:root,
+.theme-scholar {
+  color-scheme: light;
+  --background: #faf7f2;
+  --foreground: #1f2933;
+  --card: #ffffff;
+  --card-foreground: #1f2933;
+  --popover: #ffffff;
+  --popover-foreground: #1f2933;
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  --secondary: #eef0f4;
+  --secondary-foreground: #1f2933;
+  --muted: #eef0f4;
+  --muted-foreground: #6b7280;
+  --accent: #eceef3;
+  --accent-foreground: #1f2933;
+  --destructive: #ef4444;
+  --border: #e5e7eb;
+  --input: #d9dde3;
+  --ring: #4f46e5;
   --radius: 0.625rem;
 
-  /* Categorical series — slots assigned in fixed order, never cycled. */
-  --chart-1: #2a78d6; /* blue    */
-  --chart-2: #eb6834; /* orange  */
-  --chart-3: #1baf7a; /* aqua    */
-  --chart-4: #eda100; /* yellow  */
-  --chart-5: #e87ba4; /* magenta */
-  --chart-6: #008300; /* green   */
-  --chart-7: #4a3aa7; /* violet  */
+  /* Role accents, straight from the palette. */
+  --brand-primary: #4f46e5;
+  --brand-secondary: #0ea5e9;
+  --brand-accent: #f59e0b;
 
-  /*
-    Ordinal blue ramp — one hue, five ordered steps, for the genuinely ordered
-    scales in this app (difficulty bands, topic status, heatmap intensity).
-    Validated with `validate_palette.js --ordinal` against this surface: monotone
-    lightness, adjacent ΔL >= 0.06, light end 2.06:1. Never used for nominal
-    categories — those take the categorical slots above.
-  */
-  --ord-1: #86b6ef;
-  --ord-2: #5598e7;
-  --ord-3: #2a78d6;
-  --ord-4: #184f95;
-  --ord-5: #0d366b;
+  --status-good: #10b981;
+  --status-warning: #f59e0b;
+  --status-serious: #f59e0b;
+  --status-critical: #ef4444;
+  --status-info: #3b82f6;
+  --status-success-text: #047857;
 
-  /* Status — reserved, never reused as a series colour. */
-  --status-good: #0ca30c;
-  --status-warning: #fab219;
-  --status-serious: #ec835a;
-  --status-critical: #d03b3b;
-  --status-success-text: #006300;
+  /* Ordinal ramp — indigo, stepped for #ffffff cards. */
+  --ord-1: #818cf8;
+  --ord-2: #6366f1;
+  --ord-3: #4f46e5;
+  --ord-4: #3730a3;
+  --ord-5: #1e1b4b;
 
-  /* Chart chrome */
-  --viz-grid: #e1e0d9;
-  --viz-axis: #c3c2b7;
-  --viz-muted-ink: #898781;
+  --viz-grid: #e5e7eb;
+  --viz-axis: #cbd2da;
+  --viz-muted-ink: #6b7280;
 
-  --sidebar: #fcfcfb;
-  --sidebar-foreground: #0b0b0b;
-  --sidebar-primary: #1c5cab;
-  --sidebar-primary-foreground: #fcfcfb;
-  --sidebar-accent: #f0efec;
-  --sidebar-accent-foreground: #0b0b0b;
-  --sidebar-border: rgba(11, 11, 11, 0.1);
-  --sidebar-ring: #2a78d6;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1f2933;
+  --sidebar-primary: #4f46e5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef0f4;
+  --sidebar-accent-foreground: #1f2933;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #4f46e5;
 }
 
-.dark {
-  --background: #0d0d0d;
-  --foreground: #ffffff;
-  --card: #1a1a19;
-  --card-foreground: #ffffff;
-  --popover: #1a1a19;
-  --popover-foreground: #ffffff;
-  --primary: #3987e5;
-  --primary-foreground: #0d0d0d;
-  --secondary: #262624;
-  --secondary-foreground: #ffffff;
-  --muted: #262624;
-  --muted-foreground: #c3c2b7;
-  --accent: #2f2f2c;
-  --accent-foreground: #ffffff;
-  --destructive: #e66767;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.15);
-  --ring: #3987e5;
+.theme-focus-dark {
+  color-scheme: dark;
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --card: #1e293b;
+  --card-foreground: #f1f5f9;
+  --popover: #1e293b;
+  --popover-foreground: #f1f5f9;
+  --primary: #818cf8;
+  --primary-foreground: #0f172a;
+  --secondary: #273449;
+  --secondary-foreground: #f1f5f9;
+  --muted: #273449;
+  --muted-foreground: #94a3b8;
+  --accent: #2f3d54;
+  --accent-foreground: #f1f5f9;
+  --destructive: #f87171;
+  --border: #334155;
+  --input: #3d4c63;
+  --ring: #818cf8;
 
-  /* Same eight hues, stepped for the dark surface — not an automatic flip. */
+  --brand-primary: #818cf8;
+  --brand-secondary: #38bdf8;
+  --brand-accent: #fbbf24;
+
+  --status-good: #34d399;
+  --status-warning: #fbbf24;
+  --status-serious: #fbbf24;
+  --status-critical: #f87171;
+  --status-info: #60a5fa;
+  --status-success-text: #34d399;
+
+  /* Ordinal ramp — indigo, stepped for #1e293b cards: on a dark surface
+     "more" reads as brighter, so this runs dark to light. */
+  --ord-1: #4f46e5;
+  --ord-2: #6366f1;
+  --ord-3: #818cf8;
+  --ord-4: #a5b4fc;
+  --ord-5: #ddd6fe;
+
+  --viz-grid: #273449;
+  --viz-axis: #3d4c63;
+  --viz-muted-ink: #94a3b8;
+
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #818cf8;
+  --sidebar-primary-foreground: #0f172a;
+  --sidebar-accent: #2f3d54;
+  --sidebar-accent-foreground: #f1f5f9;
+  --sidebar-border: #334155;
+  --sidebar-ring: #818cf8;
+}
+
+.theme-forest {
+  color-scheme: light;
+  --background: #f4f7f4;
+  --foreground: #1c2a24;
+  --card: #ffffff;
+  --card-foreground: #1c2a24;
+  --popover: #ffffff;
+  --popover-foreground: #1c2a24;
+  --primary: #2f6b4f;
+  --primary-foreground: #ffffff;
+  --secondary: #e8efe9;
+  --secondary-foreground: #1c2a24;
+  --muted: #e8efe9;
+  --muted-foreground: #5b6b62;
+  --accent: #e2ebe4;
+  --accent-foreground: #1c2a24;
+  --destructive: #c8553d;
+  --border: #dde5df;
+  --input: #ccd8cf;
+  --ring: #2f6b4f;
+
+  --brand-primary: #2f6b4f;
+  --brand-secondary: #6c9e7f;
+  --brand-accent: #e2a93b;
+
+  --status-good: #3e8e5a;
+  --status-warning: #e2a93b;
+  --status-serious: #e2a93b;
+  --status-critical: #c8553d;
+  --status-info: #4a7ba6;
+  --status-success-text: #2f6b4f;
+
+  /* Ordinal ramp — forest green, stepped for #ffffff cards. */
+  --ord-1: #86bfa0;
+  --ord-2: #5fa37e;
+  --ord-3: #2f6b4f;
+  --ord-4: #245139;
+  --ord-5: #143324;
+
+  --viz-grid: #dde5df;
+  --viz-axis: #c2cec6;
+  --viz-muted-ink: #5b6b62;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1c2a24;
+  --sidebar-primary: #2f6b4f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8efe9;
+  --sidebar-accent-foreground: #1c2a24;
+  --sidebar-border: #dde5df;
+  --sidebar-ring: #2f6b4f;
+}
+
+.theme-paper {
+  color-scheme: light;
+  --background: #faf9f5;
+  --foreground: #1c1917;
+  --card: #fffdf8;
+  --card-foreground: #1c1917;
+  --popover: #fffdf8;
+  --popover-foreground: #1c1917;
+  --primary: #1d4ed8;
+  --primary-foreground: #fffdf8;
+  --secondary: #f0eee8;
+  --secondary-foreground: #1c1917;
+  --muted: #f0eee8;
+  --muted-foreground: #78716c;
+  --accent: #ebe8e1;
+  --accent-foreground: #1c1917;
+  --destructive: #b91c1c;
+  --border: #e7e5e4;
+  --input: #d9d6d3;
+  --ring: #1d4ed8;
+
+  --brand-primary: #1d4ed8;
+  --brand-secondary: #b45309;
+  --brand-accent: #d97706;
+
+  --status-good: #15803d;
+  --status-warning: #b45309;
+  --status-serious: #b45309;
+  --status-critical: #b91c1c;
+  --status-info: #0369a1;
+  --status-success-text: #15803d;
+
+  /* Ordinal ramp — ink blue, stepped for #fffdf8 cards. */
+  --ord-1: #93b4f5;
+  --ord-2: #5b8dea;
+  --ord-3: #1d4ed8;
+  --ord-4: #1e40af;
+  --ord-5: #172554;
+
+  --viz-grid: #e7e5e4;
+  --viz-axis: #cdc9c5;
+  --viz-muted-ink: #78716c;
+
+  --sidebar: #fffdf8;
+  --sidebar-foreground: #1c1917;
+  --sidebar-primary: #1d4ed8;
+  --sidebar-primary-foreground: #fffdf8;
+  --sidebar-accent: #f0eee8;
+  --sidebar-accent-foreground: #1c1917;
+  --sidebar-border: #e7e5e4;
+  --sidebar-ring: #1d4ed8;
+}
+
+.theme-vibrant {
+  color-scheme: light;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1f5;
+  --secondary-foreground: #0f172a;
+  --muted: #eef1f5;
+  --muted-foreground: #64748b;
+  --accent: #e9edf2;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --border: #e2e8f0;
+  --input: #d3dae3;
+  --ring: #7c3aed;
+
+  --brand-primary: #7c3aed;
+  --brand-secondary: #ec4899;
+  --brand-accent: #f59e0b;
+
+  --status-good: #22c55e;
+  --status-warning: #f97316;
+  --status-serious: #f97316;
+  --status-critical: #ef4444;
+  --status-info: #06b6d4;
+  --status-success-text: #15803d;
+
+  /* Ordinal ramp — violet, stepped for #ffffff cards. */
+  --ord-1: #a78bfa;
+  --ord-2: #8b5cf6;
+  --ord-3: #7c3aed;
+  --ord-4: #5b21b6;
+  --ord-5: #3b0f76;
+
+  --viz-grid: #e2e8f0;
+  --viz-axis: #c8d1dc;
+  --viz-muted-ink: #64748b;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #7c3aed;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef1f5;
+  --sidebar-accent-foreground: #0f172a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #7c3aed;
+}
+
+/*
+  Categorical series — identical in every theme so a subject keeps its colour
+  when you switch. Validated on all five surfaces.
+*/
+:root,
+.theme-scholar,
+.theme-forest,
+.theme-paper,
+.theme-vibrant {
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
+  --chart-3: #1baf7a;
+  --chart-4: #eda100;
+  --chart-5: #e87ba4;
+  --chart-6: #008300;
+  --chart-7: #4a3aa7;
+}
+
+.theme-focus-dark {
+  /* The same seven hues, stepped for the dark surface — not a flip. */
   --chart-1: #3987e5;
   --chart-2: #d95926;
   --chart-3: #199e70;
@@ -154,29 +375,6 @@
   --chart-5: #d55181;
   --chart-6: #008300;
   --chart-7: #9085e9;
-
-  /* Its own steps for the dark surface, not a flip of the light ones: on dark,
-     "more" reads as brighter. Validated as a set (light end 2.15:1). */
-  --ord-1: #184f95;
-  --ord-2: #256abf;
-  --ord-3: #3987e5;
-  --ord-4: #6da7ec;
-  --ord-5: #b7d3f6;
-
-  --status-success-text: #0ca30c;
-
-  --viz-grid: #2c2c2a;
-  --viz-axis: #383835;
-  --viz-muted-ink: #898781;
-
-  --sidebar: #131312;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #3987e5;
-  --sidebar-primary-foreground: #0d0d0d;
-  --sidebar-accent: #262624;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #3987e5;
 }
 
 @layer base {

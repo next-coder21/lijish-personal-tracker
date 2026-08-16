@@ -56,7 +56,7 @@ export function TodayCard({
               cy="56"
               r={R}
               fill="none"
-              stroke="var(--chart-1)"
+              stroke="var(--brand-primary)"
               strokeWidth="8"
               strokeLinecap="round"
               strokeDasharray={C}

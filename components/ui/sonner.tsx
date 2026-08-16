@@ -1,15 +1,20 @@
 "use client"
 
 import { useTheme } from "next-themes"
+
+import { paletteById } from "@/lib/palettes"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "lucide-react"
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
+  // The theme is a palette id, not "light"/"dark" — map it across so the
+  // toast surface matches the one dark palette.
+  const { theme } = useTheme()
+  const mode = paletteById(theme).isDark ? "dark" : "light"
 
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
+      theme={mode}
       className="toaster group"
       icons={{
         success: (

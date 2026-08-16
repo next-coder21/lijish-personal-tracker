@@ -15,7 +15,7 @@ import {
   XIcon,
 } from "lucide-react";
 
-import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { PalettePicker } from "@/components/layout/palette-picker";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -52,7 +52,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Icon
               className={cn(
                 "mt-0.5 size-4 shrink-0",
-                active ? "text-chart-1" : "text-muted-foreground",
+                active ? "text-primary" : "text-muted-foreground",
               )}
             />
             <span className="min-w-0">
@@ -74,8 +74,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <Brand />
         <div className="mt-6 flex-1">{nav}</div>
         <div className="mb-3 flex items-center justify-between border-t border-sidebar-border px-3 pt-3">
-          <span className="text-xs text-muted-foreground">Appearance</span>
-          <ThemeToggle />
+          <span className="text-xs text-muted-foreground">Theme</span>
+          <PalettePicker />
         </div>
         <p className="px-3 text-xs leading-relaxed text-muted-foreground">
           Data lives in this browser only. Back it up from{" "}
@@ -99,7 +99,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </Button>
           <Brand compact />
           <div className="ml-auto">
-            <ThemeToggle />
+            <PalettePicker />
           </div>
         </header>
 
@@ -118,7 +118,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <Link href="/" className="flex items-center gap-2.5 px-3">
-      <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-chart-1 text-white">
+      <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
         <TargetIcon className="size-4" />
       </span>
       <span className="min-w-0">

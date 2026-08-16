@@ -3,6 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { AppShell } from "@/components/layout/app-shell";
 import { ThemeProvider } from "@/components/theme-provider";
+import {
+  DEFAULT_PALETTE,
+  PALETTE_CLASSES,
+  PALETTE_IDS,
+} from "@/lib/palettes";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -32,10 +37,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
+        {/* `value` maps each theme id to the class string written onto <html>.
+            Deep Focus Dark carries `dark` as well so Tailwind's `dark:`
+            variants — which the shadcn components rely on — still apply. */}
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme={DEFAULT_PALETTE}
+          themes={PALETTE_IDS}
+          value={PALETTE_CLASSES}
+          enableSystem={false}
           disableTransitionOnChange
         >
           <TooltipProvider>

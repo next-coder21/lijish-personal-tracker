@@ -14,6 +14,21 @@ import { pct } from "@/lib/format";
 import { useTracker } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
+/**
+ * Bento tile width, over a six-column bed. Length earns width — a ten-row
+ * section in a narrow column would tower over everything beside it — and a
+ * section under target takes a wide tile whatever its length, so the thing to
+ * revise reads first.
+ *
+ * A third of the bed is the floor: below that the concept and its formula stop
+ * fitting on one line and the header collides with its accuracy pill.
+ */
+function tileSpan(entryCount: number, needsWork: boolean) {
+  if (entryCount >= 8) return "sm:col-span-2 lg:col-span-4";
+  if (needsWork || entryCount >= 5) return "sm:col-span-2 lg:col-span-3";
+  return "sm:col-span-1 lg:col-span-2";
+}
+
 export default function FormulasPage() {
   const topics = useTracker((s) => s.topics);
   const entries = useTracker((s) => s.entries);
@@ -78,7 +93,7 @@ export default function FormulasPage() {
   const matches = sections.reduce((n, s) => n + s.entries.length, 0);
 
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="mx-auto max-w-7xl">
       <PageHeader
         title="Formulas & Shortcuts"
         description="Your master shortcut sheet, ordered by where you are actually losing marks."
@@ -126,14 +141,17 @@ export default function FormulasPage() {
           Nothing matches “{query}”.
         </p>
       ) : (
-        // `items-start` keeps each card at its natural height — a stretched
-        // card reads as one that is missing content.
-        <div className="grid items-start gap-4 md:grid-cols-2">
+        // Bento: a six-column bed where each tile claims width from how much it
+        // has to say. `grid-flow-dense` backfills the gaps a ragged mix of spans
+        // would otherwise leave, and `auto-rows-min` keeps every tile at its
+        // natural height instead of stretching it to fill the row.
+        <div className="grid auto-rows-min grid-flow-dense grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {sections.map((section) => (
             <Card
               key={section.id}
               className={cn(
                 "gap-0 overflow-hidden py-0",
+                tileSpan(section.entries.length, section.needsWork),
                 section.needsWork && "border-[var(--status-serious)]",
               )}
             >
@@ -167,10 +185,10 @@ export default function FormulasPage() {
                 {section.entries.map((e) => (
                   <div
                     key={e.concept}
-                    className="flex items-baseline justify-between gap-4 px-5 py-2.5"
+                    className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 px-5 py-2.5"
                   >
                     <dt className="num min-w-0 text-sm">{e.concept}</dt>
-                    <dd className="num shrink-0 text-right font-mono text-sm text-muted-foreground">
+                    <dd className="num ml-auto font-mono text-sm text-muted-foreground">
                       {e.formula}
                     </dd>
                   </div>
