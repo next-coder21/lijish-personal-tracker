@@ -152,6 +152,49 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
       { concept: "Amount", formula: "P + SI" },
     ],
   },
+  // Day 5 appends ten more under one heading, again spanning several topics.
+  {
+    id: "compound-interest",
+    title: "Compound interest",
+    subject: "Quantitative Aptitude",
+    topics: ["Compound Interest"],
+    entries: [
+      { concept: "Compound Interest", formula: "P[(1 + R/100)^T − 1]" },
+      { concept: "CI − SI over 2 years", formula: "P(R/100)²" },
+      { concept: "Half-yearly", formula: "Rate ÷ 2, periods × 2" },
+    ],
+  },
+  {
+    id: "averages",
+    title: "Averages",
+    subject: "Quantitative Aptitude",
+    topics: ["Average"],
+    entries: [
+      { concept: "Average", formula: "Sum ÷ Number" },
+      { concept: "Sum from average", formula: "Average × Number" },
+      { concept: "Combined average", formula: "(n₁A₁ + n₂A₂) / (n₁ + n₂)" },
+      { concept: "Replacement", formula: "New total = Old total − old + new" },
+    ],
+  },
+  {
+    id: "successive-percentage",
+    title: "Successive percentages",
+    subject: "Quantitative Aptitude",
+    topics: ["Successive Percentage"],
+    entries: [
+      { concept: "Successive changes", formula: "a + b + ab/100 (signed)" },
+      { concept: "Same % up then down", formula: "Net decrease = x²/100" },
+    ],
+  },
+  {
+    id: "partnership",
+    title: "Partnership",
+    subject: "Quantitative Aptitude",
+    topics: ["Partnership"],
+    entries: [
+      { concept: "Profit ratio", formula: "Capital × Time" },
+    ],
+  },
   {
     id: "time-savers",
     title: "Time savers",

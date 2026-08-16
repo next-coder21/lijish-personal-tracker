@@ -6,30 +6,31 @@ import type { TrackerData } from "@/lib/types";
  * `version`, which tracks the shape of the data rather than its content and can
  * be stamped forward by an ordinary write while the content is still stale.
  */
-export const SEED_REVISION = 6;
+export const SEED_REVISION = 7;
 
 /** Day 1 of the programme, as logged in the original workbook. */
 export const DAY_ONE = "2026-08-11";
 export const DAY_TWO = "2026-08-12";
 export const DAY_THREE = "2026-08-13";
 export const DAY_FOUR = "2026-08-14";
+export const DAY_FIVE = "2026-08-15";
 
 /**
  * The programme so far, carried over from the source workbooks.
  *
- * Day 1 — `Competitive_Exam_Training_Tracker_Day1_Completed.xlsx`: eleven
- * blocks, 40 questions, 39 correct (97.5%).
- * Day 2 — `Competitive_Exam_Training_Tracker_Day2_Completed.xlsx`: seventeen
- * blocks over four sessions, 42 questions, all correct.
- * Day 3 — `Competitive_Exam_Training_Tracker_Day3_Enhanced.xlsx`: eleven blocks
- * over five sessions, 40 questions, 34 correct (85%). That workbook also
- * revised the Topic Master wholesale — new targets, priorities and statuses —
- * which is applied below, and added the Formula & Shortcuts sheet now served at
- * `/formulas` (see `lib/formulas.ts`).
- * Day 4 — `Competitive_Exam_Training_Tracker_Day4_Enhanced.xlsx`: eight blocks
- * over four sessions, 40 questions, 39 correct (97.5%), plus nine additions to
- * the formula sheet covering time & work, time-speed-distance and simple
- * interest.
+ * Day 1 — `…_Day1_Completed.xlsx`: eleven blocks, 40 questions, 39 correct.
+ * Day 2 — `…_Day2_Completed.xlsx`: seventeen blocks over four sessions, 42
+ *   questions, all correct.
+ * Day 3 — `…_Day3_Enhanced.xlsx`: eleven blocks over five sessions, 40
+ *   questions, 34 correct. That workbook also revised the Topic Master
+ *   wholesale — new targets, priorities and statuses — and added the Formula &
+ *   Shortcuts sheet now served at `/formulas` (see `lib/formulas.ts`).
+ * Day 4 — `…_Day4_Enhanced.xlsx`: eight blocks over four sessions, 40
+ *   questions, 39 correct, plus nine formulas for time & work,
+ *   time-speed-distance and simple interest.
+ * Day 5 — `…_Day5_Enhanced.xlsx`: nine blocks, 46 questions, 44 correct — the
+ *   first day run entirely at Moderate — plus ten formulas for compound
+ *   interest, averages, successive percentages and partnership.
  *
  * `Day_2_Elite_Report.xlsx` was an interim snapshot of the same day (25
  * questions, coarser topics, one ~20-minute total). The completed workbook
@@ -37,7 +38,7 @@ export const DAY_FOUR = "2026-08-14";
  * and with them the invented per-block times, since the completed workbook
  * records no times at all.
  *
- * Three things were reconciled on the way in:
+ * Five things were reconciled on the way in:
  *
  * 1. Day 1's Topic Master named three topics differently from the practice rows
  *    it describes ("Basic Grammar" vs "Grammar Basics", "Odd One Out" vs "Odd
@@ -57,6 +58,10 @@ export const DAY_FOUR = "2026-08-14";
  *    with "Advanced series solved correctly" — they are one topic under two
  *    names. Only "Advanced Series" survives, since that is what the practice
  *    rows call it.
+ * 5. Day 5's Session Log row says 40 questions with 37 correct, but its nine
+ *    Daily Performance rows add up to 46 and 44. The per-block rows win, as
+ *    with Day 1 and Day 2 — the day total looks like it was written to the
+ *    40-question goal rather than counted from the blocks.
  */
 export const seedData: TrackerData = {
   goals: {
@@ -638,6 +643,116 @@ export const seedData: TrackerData = {
       score: 5,
       notes: "Perfect final set",
     },
+
+    // --- Day 5 · 44/46, every block at Moderate ---------------------------
+    {
+      id: "seed-d5-1",
+      date: DAY_FIVE,
+      session: "Learning + Practice",
+      subject: "Quantitative Aptitude",
+      topic: "Compound Interest",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Excellent CI understanding",
+    },
+    {
+      id: "seed-d5-2",
+      date: DAY_FIVE,
+      session: "Learning + Practice",
+      subject: "Quantitative Aptitude",
+      topic: "Average",
+      attempted: 10,
+      correct: 9,
+      difficulty: "Moderate",
+      score: 4.5,
+      notes: "One combined-average arithmetic slip",
+    },
+    {
+      id: "seed-d5-3",
+      date: DAY_FIVE,
+      session: "Learning + Practice",
+      subject: "Quantitative Aptitude",
+      topic: "Successive Percentage",
+      attempted: 7,
+      correct: 7,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Correct shortcut application",
+    },
+    {
+      id: "seed-d5-4",
+      date: DAY_FIVE,
+      session: "Learning + Practice",
+      subject: "Quantitative Aptitude",
+      topic: "Partnership",
+      attempted: 5,
+      correct: 5,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect capital × time reasoning",
+    },
+    {
+      id: "seed-d5-5",
+      date: DAY_FIVE,
+      session: "Learning + Practice",
+      subject: "Reasoning",
+      topic: "Number Series",
+      attempted: 5,
+      correct: 5,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect pattern recognition",
+    },
+    {
+      id: "seed-d5-6",
+      date: DAY_FIVE,
+      session: "Final Mini-Test",
+      subject: "Quantitative Aptitude",
+      topic: "Mixed Arithmetic",
+      attempted: 5,
+      correct: 4,
+      difficulty: "Moderate",
+      score: 4.5,
+      notes: "One successive-percentage direction error",
+    },
+    {
+      id: "seed-d5-7",
+      date: DAY_FIVE,
+      session: "Final Mini-Test",
+      subject: "Reasoning",
+      topic: "Number Series",
+      attempted: 1,
+      correct: 1,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Correct",
+    },
+    {
+      id: "seed-d5-8",
+      date: DAY_FIVE,
+      session: "Final Mini-Test",
+      subject: "Quantitative Aptitude",
+      topic: "Average",
+      attempted: 1,
+      correct: 1,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Correct",
+    },
+    {
+      id: "seed-d5-9",
+      date: DAY_FIVE,
+      session: "Final Mini-Test",
+      subject: "Quantitative Aptitude",
+      topic: "Partnership",
+      attempted: 2,
+      correct: 2,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Correct",
+    },
   ],
   topics: [
     {
@@ -906,6 +1021,43 @@ export const seedData: TrackerData = {
       priority: "Low",
       notes: "Perfect Day 4",
     },
+    // --- Topics first practised on Day 5 -------------------------------------
+    {
+      id: "seed-t32",
+      subject: "Quantitative Aptitude",
+      topic: "Compound Interest",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "Day 5 excellent",
+    },
+    {
+      id: "seed-t33",
+      subject: "Quantitative Aptitude",
+      topic: "Average",
+      status: "Strong",
+      targetAccuracy: 0.9,
+      priority: "Medium",
+      notes: "One arithmetic slip",
+    },
+    {
+      id: "seed-t34",
+      subject: "Quantitative Aptitude",
+      topic: "Successive Percentage",
+      status: "Developing",
+      targetAccuracy: 0.9,
+      priority: "Medium",
+      notes: "One direction/sign error in the final test",
+    },
+    {
+      id: "seed-t35",
+      subject: "Quantitative Aptitude",
+      topic: "Partnership",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "Perfect capital × time",
+    },
   ],
   sessions: [
     {
@@ -956,6 +1108,18 @@ export const seedData: TrackerData = {
       keyStrength: "TSD, SI, reasoning, English",
       improvementArea: "Combined-work interpretation",
       nextAction: "Day 4 completed; start Day 5",
+    },
+    {
+      id: "seed-s5",
+      date: DAY_FIVE,
+      sessionType: "Learning + Practice",
+      plannedFocus:
+        "Learning + Practice + Final Mini-Test — Compound Interest, Average, Successive Percentage, Partnership, Number Series",
+      completed: true,
+      keyStrength: "Compound Interest, Partnership, Number Series",
+      improvementArea:
+        "Successive percentage direction/sign; combined-average arithmetic",
+      nextAction: "Day 5 completed; Day 6 next",
     },
   ],
 };
