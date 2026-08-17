@@ -16,7 +16,7 @@ const LEVEL: Record<HeatCell["level"], string> = {
   1: "var(--ord-1)",
   2: "var(--ord-2)",
   3: "var(--ord-4)",
-  4: "var(--ord-5)",
+  4: "var(--ord-6)",
 };
 
 const DAY_LABELS = ["Mon", "", "Wed", "", "Fri", "", "Sun"];

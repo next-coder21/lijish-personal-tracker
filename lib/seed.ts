@@ -6,7 +6,7 @@ import type { TrackerData } from "@/lib/types";
  * `version`, which tracks the shape of the data rather than its content and can
  * be stamped forward by an ordinary write while the content is still stale.
  */
-export const SEED_REVISION = 7;
+export const SEED_REVISION = 8;
 
 /** Day 1 of the programme, as logged in the original workbook. */
 export const DAY_ONE = "2026-08-11";
@@ -14,6 +14,8 @@ export const DAY_TWO = "2026-08-12";
 export const DAY_THREE = "2026-08-13";
 export const DAY_FOUR = "2026-08-14";
 export const DAY_FIVE = "2026-08-15";
+/** Sunday the 16th was a rest day — Day 6 is the Monday. */
+export const DAY_SIX = "2026-08-17";
 
 /**
  * The programme so far, carried over from the source workbooks.
@@ -31,6 +33,9 @@ export const DAY_FIVE = "2026-08-15";
  * Day 5 — `…_Day5_Enhanced.xlsx`: nine blocks, 46 questions, 44 correct — the
  *   first day run entirely at Moderate — plus ten formulas for compound
  *   interest, averages, successive percentages and partnership.
+ * Day 6 — `…_Day6_Enhanced_17-08-2026.xlsx`: six blocks, 40 questions, all
+ *   correct, including the first ever above Moderate — plus ten formulas for
+ *   relative speed, trains and boats & streams.
  *
  * `Day_2_Elite_Report.xlsx` was an interim snapshot of the same day (25
  * questions, coarser topics, one ~20-minute total). The completed workbook
@@ -38,7 +43,7 @@ export const DAY_FIVE = "2026-08-15";
  * and with them the invented per-block times, since the completed workbook
  * records no times at all.
  *
- * Five things were reconciled on the way in:
+ * Six things were reconciled on the way in:
  *
  * 1. Day 1's Topic Master named three topics differently from the practice rows
  *    it describes ("Basic Grammar" vs "Grammar Basics", "Odd One Out" vs "Odd
@@ -62,6 +67,11 @@ export const DAY_FIVE = "2026-08-15";
  *    Daily Performance rows add up to 46 and 44. The per-block rows win, as
  *    with Day 1 and Day 2 — the day total looks like it was written to the
  *    40-question goal rather than counted from the blocks.
+ * 6. Two Day 6 blocks each bundle two topics — "Relative Speed & Boats" and
+ *    "Average & Compound Interest" — while that workbook's Topic Master lists
+ *    the four separately. Ten questions cannot be split between two topics
+ *    without inventing the split, so each block stays whole under its combined
+ *    name and gets its own Topic Master row.
  */
 export const seedData: TrackerData = {
   goals: {
@@ -753,6 +763,80 @@ export const seedData: TrackerData = {
       score: 5,
       notes: "Correct",
     },
+
+    // --- Day 6 · 40/40, the first questions above Moderate ------------------
+    {
+      id: "seed-d6-1",
+      date: DAY_SIX,
+      session: "Session 1",
+      subject: "Quantitative Aptitude",
+      topic: "Relative Speed & Boats",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d6-2",
+      date: DAY_SIX,
+      session: "Session 2",
+      subject: "Quantitative Aptitude",
+      topic: "Time, Speed & Distance",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d6-3",
+      date: DAY_SIX,
+      session: "Session 3",
+      subject: "Quantitative Aptitude",
+      topic: "Average & Compound Interest",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect; percentage traps correct",
+    },
+    {
+      id: "seed-d6-4",
+      date: DAY_SIX,
+      session: "Final Session",
+      subject: "Quantitative Aptitude",
+      topic: "Mixed Arithmetic",
+      attempted: 7,
+      correct: 7,
+      difficulty: "Moderate-Hard",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d6-5",
+      date: DAY_SIX,
+      session: "Final Session",
+      subject: "Reasoning",
+      topic: "Number Series",
+      attempted: 2,
+      correct: 2,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d6-6",
+      date: DAY_SIX,
+      session: "Final Session",
+      subject: "Quantitative Aptitude",
+      topic: "Partnership",
+      attempted: 1,
+      correct: 1,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
   ],
   topics: [
     {
@@ -807,9 +891,9 @@ export const seedData: TrackerData = {
       subject: "Reasoning",
       topic: "Number Series",
       status: "Strong",
-      targetAccuracy: 0.95,
+      targetAccuracy: 0.98,
       priority: "Low",
-      notes: "Perfect reasoning performance",
+      notes: "Perfect",
     },
     {
       id: "seed-t5",
@@ -1008,9 +1092,9 @@ export const seedData: TrackerData = {
       subject: "Quantitative Aptitude",
       topic: "Time, Speed & Distance",
       status: "Strong",
-      targetAccuracy: 0.95,
+      targetAccuracy: 0.98,
       priority: "Low",
-      notes: "Perfect Day 4",
+      notes: "Advanced questions perfect",
     },
     {
       id: "seed-t31",
@@ -1027,36 +1111,55 @@ export const seedData: TrackerData = {
       subject: "Quantitative Aptitude",
       topic: "Compound Interest",
       status: "Strong",
-      targetAccuracy: 0.95,
+      targetAccuracy: 0.98,
       priority: "Low",
-      notes: "Day 5 excellent",
+      notes: "Excellent performance",
     },
     {
       id: "seed-t33",
       subject: "Quantitative Aptitude",
       topic: "Average",
       status: "Strong",
-      targetAccuracy: 0.9,
-      priority: "Medium",
-      notes: "One arithmetic slip",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "Day 6 perfect",
     },
     {
       id: "seed-t34",
       subject: "Quantitative Aptitude",
       topic: "Successive Percentage",
-      status: "Developing",
-      targetAccuracy: 0.9,
-      priority: "Medium",
-      notes: "One direction/sign error in the final test",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "All Day 6 traps correct",
     },
     {
       id: "seed-t35",
       subject: "Quantitative Aptitude",
       topic: "Partnership",
       status: "Strong",
+      targetAccuracy: 0.98,
+      priority: "Low",
+      notes: "Perfect",
+    },
+    // --- Topics first practised on Day 6 -------------------------------------
+    {
+      id: "seed-t36",
+      subject: "Quantitative Aptitude",
+      topic: "Relative Speed & Boats",
+      status: "Strong",
       targetAccuracy: 0.95,
       priority: "Low",
-      notes: "Perfect capital × time",
+      notes: "Day 6 perfect — one block covering both relative speed and boats & streams",
+    },
+    {
+      id: "seed-t37",
+      subject: "Quantitative Aptitude",
+      topic: "Average & Compound Interest",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "Day 6 perfect — one block covering both, including the percentage traps",
     },
   ],
   sessions: [
@@ -1120,6 +1223,17 @@ export const seedData: TrackerData = {
       improvementArea:
         "Successive percentage direction/sign; combined-average arithmetic",
       nextAction: "Day 5 completed; Day 6 next",
+    },
+    {
+      id: "seed-s6",
+      date: DAY_SIX,
+      sessionType: "Full Day",
+      plannedFocus:
+        "All sessions — Relative Speed, Boats & Streams, TSD, Average, CI, Partnership, Number Series",
+      completed: true,
+      keyStrength: "All listed topics",
+      improvementArea: "No errors",
+      nextAction: "Day 6 completed; Day 7 next",
     },
   ],
 };

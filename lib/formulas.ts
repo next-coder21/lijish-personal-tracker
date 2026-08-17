@@ -195,6 +195,33 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
       { concept: "Profit ratio", formula: "Capital × Time" },
     ],
   },
+  // Day 6 adds ten under "DAY 6 ADDITIONS — EXAM SHORTCUTS", spanning relative
+  // speed, boats & streams and a couple that restate earlier sections.
+  {
+    id: "relative-speed",
+    title: "Relative speed & trains",
+    subject: "Quantitative Aptitude",
+    topics: ["Relative Speed & Boats", "Time, Speed & Distance"],
+    entries: [
+      { concept: "Opposite directions", formula: "S₁ + S₂" },
+      { concept: "Same direction", formula: "|S₁ − S₂|" },
+      { concept: "Train crossing a pole", formula: "Length ÷ Speed" },
+      { concept: "Train crossing a train", formula: "Total lengths ÷ Relative speed" },
+      { concept: "Equal-distance average", formula: "2ab / (a + b)" },
+    ],
+  },
+  {
+    id: "boats-streams",
+    title: "Boats & streams",
+    subject: "Quantitative Aptitude",
+    topics: ["Relative Speed & Boats"],
+    entries: [
+      { concept: "Downstream", formula: "B + S" },
+      { concept: "Upstream", formula: "B − S" },
+      { concept: "Boat speed", formula: "(D + U) / 2" },
+      { concept: "Stream speed", formula: "(D − U) / 2" },
+    ],
+  },
   {
     id: "time-savers",
     title: "Time savers",

@@ -119,7 +119,8 @@
   --ord-2: #6366f1;
   --ord-3: #4f46e5;
   --ord-4: #3730a3;
-  --ord-5: #1e1b4b;
+  --ord-5: #282261;
+  --ord-6: #16143a;
 
   --viz-grid: #e5e7eb;
   --viz-axis: #cbd2da;
@@ -173,7 +174,8 @@
   --ord-2: #6366f1;
   --ord-3: #818cf8;
   --ord-4: #a5b4fc;
-  --ord-5: #ddd6fe;
+  --ord-5: #c7d2fe;
+  --ord-6: #e0e7ff;
 
   --viz-grid: #273449;
   --viz-axis: #3d4c63;
@@ -224,9 +226,10 @@
   /* Ordinal ramp — forest green, stepped for #ffffff cards. */
   --ord-1: #86bfa0;
   --ord-2: #5fa37e;
-  --ord-3: #2f6b4f;
-  --ord-4: #245139;
-  --ord-5: #143324;
+  --ord-3: #3f8a63;
+  --ord-4: #2f6b4f;
+  --ord-5: #245139;
+  --ord-6: #143324;
 
   --viz-grid: #dde5df;
   --viz-axis: #c2cec6;
@@ -277,9 +280,10 @@
   /* Ordinal ramp — ink blue, stepped for #fffdf8 cards. */
   --ord-1: #93b4f5;
   --ord-2: #5b8dea;
-  --ord-3: #1d4ed8;
-  --ord-4: #1e40af;
-  --ord-5: #172554;
+  --ord-3: #2f68e0;
+  --ord-4: #1d4ed8;
+  --ord-5: #1e40af;
+  --ord-6: #172554;
 
   --viz-grid: #e7e5e4;
   --viz-axis: #cdc9c5;
@@ -332,7 +336,8 @@
   --ord-2: #8b5cf6;
   --ord-3: #7c3aed;
   --ord-4: #5b21b6;
-  --ord-5: #3b0f76;
+  --ord-5: #43108a;
+  --ord-6: #2a0a5c;
 
   --viz-grid: #e2e8f0;
   --viz-axis: #c8d1dc;

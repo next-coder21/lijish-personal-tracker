@@ -51,6 +51,7 @@ export const DIFFICULTIES = [
   "Easy",
   "Easy-Moderate",
   "Moderate",
+  "Moderate-Hard",
   "Hard",
 ] as const;
 export type Difficulty = (typeof DIFFICULTIES)[number];

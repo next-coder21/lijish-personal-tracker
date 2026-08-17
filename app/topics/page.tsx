@@ -24,7 +24,7 @@ const STATUS_COLOR: Record<TopicStatus, string> = {
   "Needs Work": "var(--ord-1)",
   Developing: "var(--ord-2)",
   Strong: "var(--ord-4)",
-  Mastered: "var(--ord-5)",
+  Mastered: "var(--ord-6)",
 };
 
 interface Row {

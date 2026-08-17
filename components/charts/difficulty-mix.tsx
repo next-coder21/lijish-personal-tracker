@@ -29,7 +29,8 @@ const RAMP: Record<string, string> = {
   Easy: "var(--ord-2)",
   "Easy-Moderate": "var(--ord-3)",
   Moderate: "var(--ord-4)",
-  Hard: "var(--ord-5)",
+  "Moderate-Hard": "var(--ord-5)",
+  Hard: "var(--ord-6)",
 };
 
 export function DifficultyMix({ points }: { points: DifficultyPoint[] }) {
