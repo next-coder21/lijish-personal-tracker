@@ -23,6 +23,7 @@ import {
   difficultyBreakdown,
   longestStreak,
   momentum,
+  studyDays,
   subjectSummaries,
   todayISO,
   topicInsights,
@@ -61,9 +62,12 @@ export default function DashboardPage() {
     () => totalsOf(entries.filter((e) => e.date === today)),
     [entries, today],
   );
+  // Day numbers come from every entry, not the filtered slice, so switching
+  // the range never renumbers the programme.
+  const allStudyDays = useMemo(() => studyDays(entries), [entries]);
   const days = useMemo(
-    () => dailySeries(scoped, goals, rangeDays || undefined),
-    [scoped, goals, rangeDays],
+    () => dailySeries(scoped, goals, allStudyDays, rangeDays || undefined),
+    [scoped, goals, allStudyDays, rangeDays],
   );
   const summaries = useMemo(() => subjectSummaries(scoped), [scoped]);
   const insights = useMemo(
@@ -79,7 +83,7 @@ export default function DashboardPage() {
   );
   const streak = currentStreak(entries);
   const best = longestStreak(entries);
-  const studyDays = new Set(scoped.map((e) => e.date)).size;
+  const studyDayCount = new Set(scoped.map((e) => e.date)).size;
 
   const untouched = insights
     .filter((t) => !t.practiced)
@@ -109,7 +113,7 @@ export default function DashboardPage() {
     <div className="mx-auto max-w-7xl">
       <PageHeader
         title="Dashboard"
-        description={`${dayLabel(today, goals.startDate)} · ${longDate(today)}${
+        description={`${dayLabel(today, allStudyDays)} · ${longDate(today)}${
           daysToExam !== null && daysToExam >= 0
             ? ` · ${daysToExam} days to exam`
             : ""
@@ -145,7 +149,7 @@ export default function DashboardPage() {
           label="Questions attempted"
           value={String(totals.attempted)}
           accent="var(--chart-1)"
-          hint={`${studyDays} study day${studyDays === 1 ? "" : "s"}`}
+          hint={`${studyDayCount} study day${studyDayCount === 1 ? "" : "s"}`}
           delta={
             mo.attempted.change === null
               ? null
@@ -213,7 +217,7 @@ export default function DashboardPage() {
           today={todayTotals}
           dailyTarget={goals.dailyQuestionTarget}
           accuracyTarget={goals.accuracyTarget}
-          dayLabel={dayLabel(today, goals.startDate)}
+          dayLabel={dayLabel(today, allStudyDays)}
           dateLabel={longDate(today)}
         />
         <div className="lg:col-span-2">

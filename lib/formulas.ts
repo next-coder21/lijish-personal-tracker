@@ -222,6 +222,21 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
       { concept: "Stream speed", formula: "(D − U) / 2" },
     ],
   },
+  // Day 7 adds "EXAM TRAPS" — not formulas so much as the specific mistakes
+  // that cost marks that day. Kept as its own section because it is the only
+  // one scored against English, and the traps are what to reread before a test.
+  {
+    id: "exam-traps",
+    title: "Exam traps",
+    subject: "English",
+    topics: ["Grammar Basics", "Collective Nouns"],
+    entries: [
+      { concept: "Committee as one unit", formula: "has / is" },
+      { concept: "Committee as members", formula: "have / are" },
+      { concept: "Information", formula: "uncountable — never “informations”" },
+      { concept: "Answer format", formula: "give the form asked for" },
+    ],
+  },
   {
     id: "time-savers",
     title: "Time savers",

@@ -10,7 +10,7 @@ import { EntryDialog } from "@/components/forms/entry-dialog";
 import { PageHeader } from "@/components/page-header";
 import { RowMenu } from "@/components/row-menu";
 import { Badge } from "@/components/ui/badge";
-import { subjectColor, dayLabel, ratio, totalsOf } from "@/lib/analytics";
+import { subjectColor, dayLabel, ratio, studyDays, totalsOf } from "@/lib/analytics";
 import { num, pct, shortDate } from "@/lib/format";
 import { useTracker } from "@/lib/store";
 import type { PracticeEntry } from "@/lib/types";
@@ -45,6 +45,8 @@ export default function PracticePage() {
 
   const [editing, setEditing] = useState<PracticeEntry | null>(null);
 
+  const days = useMemo(() => studyDays(entries), [entries]);
+
   const rows = useMemo<Row[]>(
     () =>
       [...entries]
@@ -52,7 +54,7 @@ export default function PracticePage() {
         .map((e) => ({
           id: e.id,
           date: e.date,
-          day: dayLabel(e.date, goals.startDate),
+          day: dayLabel(e.date, days),
           session: e.session,
           subject: e.subject,
           topic: e.topic,
@@ -66,7 +68,7 @@ export default function PracticePage() {
           score: e.score,
           notes: e.notes ?? "",
         })),
-    [entries, goals.startDate],
+    [entries, days],
   );
 
   const totals = useMemo(() => totalsOf(entries), [entries]);

@@ -6,7 +6,7 @@ import type { TrackerData } from "@/lib/types";
  * `version`, which tracks the shape of the data rather than its content and can
  * be stamped forward by an ordinary write while the content is still stale.
  */
-export const SEED_REVISION = 8;
+export const SEED_REVISION = 9;
 
 /** Day 1 of the programme, as logged in the original workbook. */
 export const DAY_ONE = "2026-08-11";
@@ -16,6 +16,7 @@ export const DAY_FOUR = "2026-08-14";
 export const DAY_FIVE = "2026-08-15";
 /** Sunday the 16th was a rest day — Day 6 is the Monday. */
 export const DAY_SIX = "2026-08-17";
+export const DAY_SEVEN = "2026-08-18";
 
 /**
  * The programme so far, carried over from the source workbooks.
@@ -36,6 +37,9 @@ export const DAY_SIX = "2026-08-17";
  * Day 6 — `…_Day6_Enhanced_17-08-2026.xlsx`: six blocks, 40 questions, all
  *   correct, including the first ever above Moderate — plus ten formulas for
  *   relative speed, trains and boats & streams.
+ * Day 7 — `…_Day7_Enhanced_18-08-2026.xlsx`: eight blocks over four rounds, 40
+ *   questions, 37 correct, including the first Hard round — plus eight exam-trap
+ *   notes covering collective nouns, uncountable nouns and answer format.
  *
  * `Day_2_Elite_Report.xlsx` was an interim snapshot of the same day (25
  * questions, coarser topics, one ~20-minute total). The completed workbook
@@ -43,7 +47,7 @@ export const DAY_SIX = "2026-08-17";
  * and with them the invented per-block times, since the completed workbook
  * records no times at all.
  *
- * Six things were reconciled on the way in:
+ * Seven things were reconciled on the way in:
  *
  * 1. Day 1's Topic Master named three topics differently from the practice rows
  *    it describes ("Basic Grammar" vs "Grammar Basics", "Odd One Out" vs "Odd
@@ -72,6 +76,9 @@ export const DAY_SIX = "2026-08-17";
  *    the four separately. Ten questions cannot be split between two topics
  *    without inventing the split, so each block stays whole under its combined
  *    name and gets its own Topic Master row.
+ * 7. Day 7's Topic Master adds an "English Grammar" row alongside the existing
+ *    "Basic Grammar" — the same topic again under a second name. Its revisions
+ *    are applied to the one row the practice actually joins to.
  */
 export const seedData: TrackerData = {
   goals: {
@@ -837,6 +844,104 @@ export const seedData: TrackerData = {
       score: 5,
       notes: "Perfect",
     },
+
+    // --- Day 7 · 37/40 over four rounds, the first Hard questions -----------
+    {
+      id: "seed-d7-1",
+      date: DAY_SEVEN,
+      session: "Round 1",
+      subject: "Quantitative Aptitude",
+      topic: "Mixed Quantitative",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect mixed-topic round",
+    },
+    {
+      id: "seed-d7-2",
+      date: DAY_SEVEN,
+      session: "Round 2",
+      subject: "Quantitative Aptitude",
+      topic: "Advanced Mixed Quantitative",
+      attempted: 7,
+      correct: 7,
+      difficulty: "Moderate-Hard",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d7-3",
+      date: DAY_SEVEN,
+      session: "Round 2",
+      subject: "Reasoning",
+      topic: "Number Series",
+      attempted: 2,
+      correct: 2,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d7-4",
+      date: DAY_SEVEN,
+      session: "Round 2",
+      subject: "Quantitative Aptitude",
+      topic: "Time & Work",
+      attempted: 1,
+      correct: 0,
+      difficulty: "Moderate",
+      score: 4,
+      notes: "Answer-format trap — gave a percentage where a fraction was asked for",
+    },
+    {
+      id: "seed-d7-5",
+      date: DAY_SEVEN,
+      session: "Round 3",
+      subject: "English",
+      topic: "Grammar Basics",
+      attempted: 10,
+      correct: 8,
+      difficulty: "Moderate",
+      score: 4,
+      notes: "Collective nouns and uncountable nouns need reinforcement",
+    },
+    {
+      id: "seed-d7-6",
+      date: DAY_SEVEN,
+      session: "Round 4",
+      subject: "Quantitative Aptitude",
+      topic: "Mixed Advanced Quantitative",
+      attempted: 8,
+      correct: 8,
+      difficulty: "Hard",
+      score: 5,
+      notes: "Perfect final round",
+    },
+    {
+      id: "seed-d7-7",
+      date: DAY_SEVEN,
+      session: "Round 4",
+      subject: "Reasoning",
+      topic: "Number Series",
+      attempted: 1,
+      correct: 1,
+      difficulty: "Hard",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d7-8",
+      date: DAY_SEVEN,
+      session: "Round 4",
+      subject: "English",
+      topic: "Grammar Basics",
+      attempted: 1,
+      correct: 1,
+      difficulty: "Hard",
+      score: 5,
+      notes: "Perfect",
+    },
   ],
   topics: [
     {
@@ -1018,9 +1123,9 @@ export const seedData: TrackerData = {
       subject: "English",
       topic: "Grammar Basics",
       status: "Developing",
-      targetAccuracy: 0.85,
+      targetAccuracy: 0.9,
       priority: "High",
-      notes: "Collective noun and agreement errors remain",
+      notes: "Subject-verb agreement and uncountable nouns",
     },
     // --- Topics first practised or flagged on Day 3 -------------------------
     {
@@ -1085,7 +1190,7 @@ export const seedData: TrackerData = {
       status: "Strong",
       targetAccuracy: 0.9,
       priority: "Medium",
-      notes: "One combined-work mistake",
+      notes: "Strong; watch the requested answer format",
     },
     {
       id: "seed-t30",
@@ -1094,7 +1199,7 @@ export const seedData: TrackerData = {
       status: "Strong",
       targetAccuracy: 0.98,
       priority: "Low",
-      notes: "Advanced questions perfect",
+      notes: "Excellent",
     },
     {
       id: "seed-t31",
@@ -1113,7 +1218,7 @@ export const seedData: TrackerData = {
       status: "Strong",
       targetAccuracy: 0.98,
       priority: "Low",
-      notes: "Excellent performance",
+      notes: "Excellent",
     },
     {
       id: "seed-t33",
@@ -1122,7 +1227,7 @@ export const seedData: TrackerData = {
       status: "Strong",
       targetAccuracy: 0.95,
       priority: "Low",
-      notes: "Day 6 perfect",
+      notes: "Strong",
     },
     {
       id: "seed-t34",
@@ -1131,7 +1236,7 @@ export const seedData: TrackerData = {
       status: "Strong",
       targetAccuracy: 0.95,
       priority: "Low",
-      notes: "All Day 6 traps correct",
+      notes: "Day 7 traps handled correctly",
     },
     {
       id: "seed-t35",
@@ -1140,7 +1245,7 @@ export const seedData: TrackerData = {
       status: "Strong",
       targetAccuracy: 0.98,
       priority: "Low",
-      notes: "Perfect",
+      notes: "Strong",
     },
     // --- Topics first practised on Day 6 -------------------------------------
     {
@@ -1160,6 +1265,34 @@ export const seedData: TrackerData = {
       targetAccuracy: 0.95,
       priority: "Low",
       notes: "Day 6 perfect — one block covering both, including the percentage traps",
+    },
+    // --- Topics first practised on Day 7 -------------------------------------
+    {
+      id: "seed-t38",
+      subject: "Quantitative Aptitude",
+      topic: "Mixed Quantitative",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "Mixed-topic round, Day 7 perfect",
+    },
+    {
+      id: "seed-t39",
+      subject: "Quantitative Aptitude",
+      topic: "Advanced Mixed Quantitative",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "Moderate-Hard round, Day 7 perfect",
+    },
+    {
+      id: "seed-t40",
+      subject: "Quantitative Aptitude",
+      topic: "Mixed Advanced Quantitative",
+      status: "Strong",
+      targetAccuracy: 0.95,
+      priority: "Low",
+      notes: "The first Hard round, and perfect",
     },
   ],
   sessions: [
@@ -1234,6 +1367,17 @@ export const seedData: TrackerData = {
       keyStrength: "All listed topics",
       improvementArea: "No errors",
       nextAction: "Day 6 completed; Day 7 next",
+    },
+    {
+      id: "seed-s7",
+      date: DAY_SEVEN,
+      sessionType: "Full Day",
+      plannedFocus:
+        "Round 1 + Round 2 + Round 3 + Round 4 — Mixed Quantitative, Reasoning, English",
+      completed: true,
+      keyStrength: "Quantitative strengths",
+      improvementArea: "English grammar and answer-format precision",
+      nextAction: "Day 7 completed; 7-day cycle complete",
     },
   ],
 };

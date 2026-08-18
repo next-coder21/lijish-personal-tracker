@@ -17,7 +17,7 @@ import { PageHeader } from "@/components/page-header";
 import { RowMenu } from "@/components/row-menu";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { sessionInsights } from "@/lib/analytics";
+import { sessionInsights, studyDays } from "@/lib/analytics";
 import { longDate, pct } from "@/lib/format";
 import { useTracker } from "@/lib/store";
 import type { SessionRecord } from "@/lib/types";
@@ -31,9 +31,10 @@ export default function SessionsPage() {
 
   const [editing, setEditing] = useState<SessionRecord | null>(null);
 
+  const days = useMemo(() => studyDays(entries), [entries]);
   const insights = useMemo(
-    () => sessionInsights(sessions, entries, goals),
-    [sessions, entries, goals],
+    () => sessionInsights(sessions, entries, days),
+    [sessions, entries, days],
   );
 
   const completed = insights.filter((s) => s.completed).length;
