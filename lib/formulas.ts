@@ -64,6 +64,8 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
       { concept: "Loss %", formula: "Loss / CP × 100" },
       { concept: "SP with profit", formula: "CP × (100 + p) / 100" },
       { concept: "SP with loss", formula: "CP × (100 − l) / 100" },
+      { concept: "CP from SP at profit", formula: "SP × 100 / (100 + p)" },
+      { concept: "CP from SP at loss", formula: "SP × 100 / (100 − l)" },
     ],
   },
   {
@@ -127,6 +129,8 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
     entries: [
       { concept: "Together (two people)", formula: "1/T = 1/a + 1/b" },
       { concept: "Together (three people)", formula: "1/T = 1/a + 1/b + 1/c" },
+      { concept: "Any number together", formula: "1/T = sum of work rates" },
+      { concept: "Remaining work", formula: "1 − completed fraction" },
     ],
   },
   {
@@ -235,6 +239,22 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
       { concept: "Committee as members", formula: "have / are" },
       { concept: "Information", formula: "uncountable — never “informations”" },
       { concept: "Answer format", formula: "give the form asked for" },
+      {
+        concept: "Uncountable nouns",
+        formula: "furniture, information, advice, equipment, news → singular verb",
+      },
+    ],
+  },
+  // Day 8 adds twelve, most of them restating profit/loss and time & work on the
+  // sections that already own those topics. Data interpretation is the one new
+  // area, so it gets its own tile.
+  {
+    id: "data-interpretation",
+    title: "Data interpretation",
+    subject: "Quantitative Aptitude",
+    topics: ["Data Interpretation"],
+    entries: [
+      { concept: "Share of a total", formula: "Relevant total ÷ base total × 100" },
     ],
   },
   {

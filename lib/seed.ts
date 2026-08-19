@@ -6,7 +6,7 @@ import type { TrackerData } from "@/lib/types";
  * `version`, which tracks the shape of the data rather than its content and can
  * be stamped forward by an ordinary write while the content is still stale.
  */
-export const SEED_REVISION = 9;
+export const SEED_REVISION = 10;
 
 /** Day 1 of the programme, as logged in the original workbook. */
 export const DAY_ONE = "2026-08-11";
@@ -17,6 +17,7 @@ export const DAY_FIVE = "2026-08-15";
 /** Sunday the 16th was a rest day — Day 6 is the Monday. */
 export const DAY_SIX = "2026-08-17";
 export const DAY_SEVEN = "2026-08-18";
+export const DAY_EIGHT = "2026-08-19";
 
 /**
  * The programme so far, carried over from the source workbooks.
@@ -40,6 +41,10 @@ export const DAY_SEVEN = "2026-08-18";
  * Day 7 — `…_Day7_Enhanced_18-08-2026.xlsx`: eight blocks over four rounds, 40
  *   questions, 37 correct, including the first Hard round — plus eight exam-trap
  *   notes covering collective nouns, uncountable nouns and answer format.
+ * Day 8 — `…_Day8_Enhanced_19-08-2026.xlsx`: five blocks over four rounds, 40
+ *   questions, 39 correct — the day Profit & Loss and Time & Work were finally
+ *   revisited, both perfect — plus twelve formulas restating profit/loss and
+ *   adding data interpretation and uncountable nouns.
  *
  * `Day_2_Elite_Report.xlsx` was an interim snapshot of the same day (25
  * questions, coarser topics, one ~20-minute total). The completed workbook
@@ -942,6 +947,68 @@ export const seedData: TrackerData = {
       score: 5,
       notes: "Perfect",
     },
+
+    // --- Day 8 · 39/40, the day the weak topics were finally revisited -----
+    {
+      id: "seed-d8-1",
+      date: DAY_EIGHT,
+      session: "Round 1",
+      subject: "Quantitative Aptitude",
+      topic: "Profit & Loss",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d8-2",
+      date: DAY_EIGHT,
+      session: "Round 2",
+      subject: "Quantitative Aptitude",
+      topic: "Time & Work",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d8-3",
+      date: DAY_EIGHT,
+      session: "Round 3",
+      subject: "Quantitative Aptitude",
+      topic: "Data Interpretation",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d8-4",
+      date: DAY_EIGHT,
+      session: "Round 4",
+      subject: "English",
+      topic: "Grammar Basics",
+      attempted: 9,
+      correct: 8,
+      difficulty: "Moderate",
+      score: 4,
+      notes: "Uncountable noun error — “furniture is”",
+    },
+    {
+      id: "seed-d8-5",
+      date: DAY_EIGHT,
+      session: "Round 4",
+      subject: "Reasoning",
+      topic: "Number Series",
+      attempted: 1,
+      correct: 1,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
   ],
   topics: [
     {
@@ -1123,19 +1190,19 @@ export const seedData: TrackerData = {
       subject: "English",
       topic: "Grammar Basics",
       status: "Developing",
-      targetAccuracy: 0.9,
+      targetAccuracy: 0.88,
       priority: "High",
-      notes: "Subject-verb agreement and uncountable nouns",
+      notes: "Uncountable nouns remain the priority",
     },
     // --- Topics first practised or flagged on Day 3 -------------------------
     {
       id: "seed-t23",
       subject: "Quantitative Aptitude",
       topic: "Profit & Loss",
-      status: "Developing",
-      targetAccuracy: 0.85,
-      priority: "High",
-      notes: "Loss and profit reading errors",
+      status: "Strong",
+      targetAccuracy: 0.98,
+      priority: "Low",
+      notes: "Day 8 perfect",
     },
     {
       id: "seed-t24",
@@ -1188,9 +1255,9 @@ export const seedData: TrackerData = {
       subject: "Quantitative Aptitude",
       topic: "Time & Work",
       status: "Strong",
-      targetAccuracy: 0.9,
-      priority: "Medium",
-      notes: "Strong; watch the requested answer format",
+      targetAccuracy: 0.98,
+      priority: "Low",
+      notes: "Day 8 perfect",
     },
     {
       id: "seed-t30",
@@ -1294,6 +1361,16 @@ export const seedData: TrackerData = {
       priority: "Low",
       notes: "The first Hard round, and perfect",
     },
+    // --- Topics first practised on Day 8 -------------------------------------
+    {
+      id: "seed-t41",
+      subject: "Quantitative Aptitude",
+      topic: "Data Interpretation",
+      status: "Strong",
+      targetAccuracy: 0.98,
+      priority: "Low",
+      notes: "Day 8 perfect",
+    },
   ],
   sessions: [
     {
@@ -1378,6 +1455,17 @@ export const seedData: TrackerData = {
       keyStrength: "Quantitative strengths",
       improvementArea: "English grammar and answer-format precision",
       nextAction: "Day 7 completed; 7-day cycle complete",
+    },
+    {
+      id: "seed-s8",
+      date: DAY_EIGHT,
+      sessionType: "Full Day",
+      plannedFocus:
+        "All rounds — Profit & Loss, Time & Work, Data Interpretation, English Grammar, Number Series",
+      completed: true,
+      keyStrength: "Profit & Loss, Time & Work, DI, Number Series",
+      improvementArea: "English uncountable nouns",
+      nextAction: "Day 8 completed; 39/40",
     },
   ],
 };
