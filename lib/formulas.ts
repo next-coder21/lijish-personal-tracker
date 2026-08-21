@@ -300,6 +300,39 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
       { concept: "Senior", formula: "senior *to*, never senior than" },
     ],
   },
+  // Day 10 adds ten vocabulary words and six application rules. The words are a
+  // glossary rather than shortcuts, so they get their own tile; the rules go
+  // beside the agreement section they belong to.
+  {
+    id: "vocabulary",
+    title: "Vocabulary",
+    subject: "English",
+    topics: ["Vocabulary + Basic Grammar", "Synonyms & Antonyms"],
+    entries: [
+      { concept: "Abundant", formula: "plentiful" },
+      { concept: "Reluctant", formula: "unwilling" },
+      { concept: "Obsolete", formula: "outdated, no longer in use" },
+      { concept: "Diligent", formula: "hardworking" },
+      { concept: "Precise", formula: "exact" },
+      { concept: "Mandatory", formula: "compulsory" },
+      { concept: "Vulnerable", formula: "easily harmed" },
+      { concept: "Scarce", formula: "opposite of abundant" },
+      { concept: "Commence", formula: "begin" },
+      { concept: "Transparent", formula: "open and clear" },
+    ],
+  },
+  {
+    id: "sentence-application",
+    title: "Sentence application",
+    subject: "English",
+    topics: ["Sentence Correction", "Vocabulary + Basic Grammar"],
+    entries: [
+      { concept: "doesn't + verb", formula: "base verb — doesn't know" },
+      { concept: "Finished past time", formula: "yesterday, last week → simple past" },
+      { concept: "Prefer", formula: "prefer A *to* B" },
+      { concept: "Along with", formula: "does not change the main subject's verb" },
+    ],
+  },
   {
     id: "time-savers",
     title: "Time savers",

@@ -6,7 +6,7 @@ import type { TrackerData } from "@/lib/types";
  * `version`, which tracks the shape of the data rather than its content and can
  * be stamped forward by an ordinary write while the content is still stale.
  */
-export const SEED_REVISION = 11;
+export const SEED_REVISION = 12;
 
 /** Day 1 of the programme, as logged in the original workbook. */
 export const DAY_ONE = "2026-08-11";
@@ -19,6 +19,7 @@ export const DAY_SIX = "2026-08-17";
 export const DAY_SEVEN = "2026-08-18";
 export const DAY_EIGHT = "2026-08-19";
 export const DAY_NINE = "2026-08-20";
+export const DAY_TEN = "2026-08-21";
 
 /**
  * The programme so far, carried over from the source workbooks.
@@ -49,6 +50,9 @@ export const DAY_NINE = "2026-08-20";
  * Day 9 — `…_Day9_Enhanced_20-08-2026.xlsx`: four rounds, 40 questions, all
  *   correct, every one of them English — the first single-subject day — plus
  *   seventeen grammar rules covering agreement, tenses and prepositions.
+ * Day 10 — `…_Day10_Enhanced_21-08-2026.xlsx`: four English rounds, 40
+ *   questions, 30 correct — the lowest day of the programme — plus sixteen
+ *   vocabulary and sentence-application notes.
  *
  * `Day_2_Elite_Report.xlsx` was an interim snapshot of the same day (25
  * questions, coarser topics, one ~20-minute total). The completed workbook
@@ -1068,6 +1072,56 @@ export const seedData: TrackerData = {
       score: 5,
       notes: "Perfect",
     },
+
+    // --- Day 10 · 30/40, the lowest day so far ------------------------------
+    {
+      id: "seed-d10-1",
+      date: DAY_TEN,
+      session: "Round 1",
+      subject: "English",
+      topic: "Vocabulary + Basic Grammar",
+      attempted: 10,
+      correct: 5,
+      difficulty: "Moderate",
+      score: 3,
+      notes: "Vocabulary and subject-verb application need reinforcement",
+    },
+    {
+      id: "seed-d10-2",
+      date: DAY_TEN,
+      session: "Round 2",
+      subject: "English",
+      topic: "Synonyms & Antonyms",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d10-3",
+      date: DAY_TEN,
+      session: "Round 3",
+      subject: "English",
+      topic: "Sentence Correction",
+      attempted: 10,
+      correct: 5,
+      difficulty: "Moderate",
+      score: 3,
+      notes: "Needs more application practice",
+    },
+    {
+      id: "seed-d10-4",
+      date: DAY_TEN,
+      session: "Round 4",
+      subject: "English",
+      topic: "Error Spotting",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate-Hard",
+      score: 5,
+      notes: "Perfect recovery",
+    },
   ],
   topics: [
     {
@@ -1230,10 +1284,10 @@ export const seedData: TrackerData = {
       id: "seed-t21",
       subject: "English",
       topic: "Sentence Correction",
-      status: "Strong",
-      targetAccuracy: 0.85,
-      priority: "Medium",
-      notes: "3/3 on Day 2",
+      status: "Developing",
+      targetAccuracy: 0.75,
+      priority: "High",
+      notes: "Day 10: 5/10 — needs application practice",
     },
     {
       id: "seed-t22",
@@ -1248,10 +1302,10 @@ export const seedData: TrackerData = {
       id: "seed-t8",
       subject: "English",
       topic: "Grammar Basics",
-      status: "Strong",
-      targetAccuracy: 1,
-      priority: "Low",
-      notes: "Perfect Day 9 — 40/40 across a full English day",
+      status: "Developing",
+      targetAccuracy: 0.85,
+      priority: "High",
+      notes: "Needs application under changing sentence structures",
     },
     // --- Topics first practised or flagged on Day 3 -------------------------
     {
@@ -1467,6 +1521,25 @@ export const seedData: TrackerData = {
       priority: "Low",
       notes: "Perfect at Moderate-Hard",
     },
+    // --- Topics first practised on Day 10 ------------------------------------
+    {
+      id: "seed-t46",
+      subject: "English",
+      topic: "Vocabulary + Basic Grammar",
+      status: "Developing",
+      targetAccuracy: 0.75,
+      priority: "High",
+      notes: "Day 10: 5/10 — one block covering both vocabulary and grammar",
+    },
+    {
+      id: "seed-t47",
+      subject: "English",
+      topic: "Synonyms & Antonyms",
+      status: "Strong",
+      targetAccuracy: 1,
+      priority: "Low",
+      notes: "Day 10 perfect",
+    },
   ],
   sessions: [
     {
@@ -1573,6 +1646,17 @@ export const seedData: TrackerData = {
       keyStrength: "All English topics",
       improvementArea: "No errors",
       nextAction: "Day 9 completed — 40/40",
+    },
+    {
+      id: "seed-s10",
+      date: DAY_TEN,
+      sessionType: "Full Day",
+      plannedFocus:
+        "All rounds — Vocabulary, Synonyms & Antonyms, Sentence Correction, Error Spotting",
+      completed: true,
+      keyStrength: "Synonyms & Antonyms, Error Spotting",
+      improvementArea: "Vocabulary, sentence correction",
+      nextAction: "Day 10 completed — 30/40",
     },
   ],
 };
