@@ -257,6 +257,49 @@ export const FORMULA_SECTIONS: FormulaSection[] = [
       { concept: "Share of a total", formula: "Relevant total ÷ base total × 100" },
     ],
   },
+  // Day 9 adds seventeen English rules under one heading. They split cleanly
+  // along the four topics that day's rounds were scored against, so each tile
+  // gets its own live accuracy like every other section.
+  {
+    id: "subject-verb",
+    title: "Subject-verb agreement",
+    subject: "English",
+    topics: ["Subject-Verb Agreement", "Collective Nouns"],
+    entries: [
+      { concept: "Each / Every", formula: "singular verb" },
+      { concept: "One of + plural", formula: "singular verb" },
+      { concept: "Neither … nor", formula: "agrees with the nearer subject" },
+      { concept: "Uncountable nouns", formula: "information, furniture, advice, equipment, news → singular" },
+    ],
+  },
+  {
+    id: "tenses",
+    title: "Tenses",
+    subject: "English",
+    topics: ["Tenses"],
+    entries: [
+      { concept: "Simple present", formula: "habit or fact" },
+      { concept: "Present continuous", formula: "now, currently" },
+      { concept: "Present perfect", formula: "completed, with a present connection" },
+      { concept: "Present perfect continuous", formula: "since / for, still going" },
+      { concept: "Simple past", formula: "finished past time" },
+    ],
+  },
+  {
+    id: "articles-prepositions",
+    title: "Articles & prepositions",
+    subject: "English",
+    topics: ["Articles & Prepositions"],
+    entries: [
+      { concept: "A / An", formula: "go by sound, not spelling" },
+      { concept: "For", formula: "duration" },
+      { concept: "Since", formula: "starting point" },
+      { concept: "By", formula: "deadline" },
+      { concept: "Until", formula: "continuation up to a time" },
+      { concept: "Between / Among", formula: "two / more than two" },
+      { concept: "Senior", formula: "senior *to*, never senior than" },
+    ],
+  },
   {
     id: "time-savers",
     title: "Time savers",

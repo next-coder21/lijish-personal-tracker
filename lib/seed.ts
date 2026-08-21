@@ -6,7 +6,7 @@ import type { TrackerData } from "@/lib/types";
  * `version`, which tracks the shape of the data rather than its content and can
  * be stamped forward by an ordinary write while the content is still stale.
  */
-export const SEED_REVISION = 10;
+export const SEED_REVISION = 11;
 
 /** Day 1 of the programme, as logged in the original workbook. */
 export const DAY_ONE = "2026-08-11";
@@ -18,6 +18,7 @@ export const DAY_FIVE = "2026-08-15";
 export const DAY_SIX = "2026-08-17";
 export const DAY_SEVEN = "2026-08-18";
 export const DAY_EIGHT = "2026-08-19";
+export const DAY_NINE = "2026-08-20";
 
 /**
  * The programme so far, carried over from the source workbooks.
@@ -45,6 +46,9 @@ export const DAY_EIGHT = "2026-08-19";
  *   questions, 39 correct — the day Profit & Loss and Time & Work were finally
  *   revisited, both perfect — plus twelve formulas restating profit/loss and
  *   adding data interpretation and uncountable nouns.
+ * Day 9 — `…_Day9_Enhanced_20-08-2026.xlsx`: four rounds, 40 questions, all
+ *   correct, every one of them English — the first single-subject day — plus
+ *   seventeen grammar rules covering agreement, tenses and prepositions.
  *
  * `Day_2_Elite_Report.xlsx` was an interim snapshot of the same day (25
  * questions, coarser topics, one ~20-minute total). The completed workbook
@@ -52,7 +56,7 @@ export const DAY_EIGHT = "2026-08-19";
  * and with them the invented per-block times, since the completed workbook
  * records no times at all.
  *
- * Seven things were reconciled on the way in:
+ * Eight things were reconciled on the way in:
  *
  * 1. Day 1's Topic Master named three topics differently from the practice rows
  *    it describes ("Basic Grammar" vs "Grammar Basics", "Odd One Out" vs "Odd
@@ -83,7 +87,12 @@ export const DAY_EIGHT = "2026-08-19";
  *    name and gets its own Topic Master row.
  * 7. Day 7's Topic Master adds an "English Grammar" row alongside the existing
  *    "Basic Grammar" — the same topic again under a second name. Its revisions
- *    are applied to the one row the practice actually joins to.
+ *    are applied to the one row the practice actually joins to. Day 9 files
+ *    that same row under Quantitative Aptitude, which it plainly is not;
+ *    ignoring the row sidesteps that too.
+ * 8. Day 9's practice rows spell it "Subject–Verb Agreement" with an en dash
+ *    while its own Session Log uses a hyphen. The hyphen wins, so the topic is
+ *    typeable and matches what a search would look for.
  */
 export const seedData: TrackerData = {
   goals: {
@@ -1009,6 +1018,56 @@ export const seedData: TrackerData = {
       score: 5,
       notes: "Perfect",
     },
+
+    // --- Day 9 · 40/40, an all-English day ---------------------------------
+    {
+      id: "seed-d9-1",
+      date: DAY_NINE,
+      session: "Round 1",
+      subject: "English",
+      topic: "Subject-Verb Agreement",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d9-2",
+      date: DAY_NINE,
+      session: "Round 2",
+      subject: "English",
+      topic: "Tenses",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d9-3",
+      date: DAY_NINE,
+      session: "Round 3",
+      subject: "English",
+      topic: "Articles & Prepositions",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate",
+      score: 5,
+      notes: "Perfect",
+    },
+    {
+      id: "seed-d9-4",
+      date: DAY_NINE,
+      session: "Round 4",
+      subject: "English",
+      topic: "Error Spotting",
+      attempted: 10,
+      correct: 10,
+      difficulty: "Moderate-Hard",
+      score: 5,
+      notes: "Perfect",
+    },
   ],
   topics: [
     {
@@ -1189,10 +1248,10 @@ export const seedData: TrackerData = {
       id: "seed-t8",
       subject: "English",
       topic: "Grammar Basics",
-      status: "Developing",
-      targetAccuracy: 0.88,
-      priority: "High",
-      notes: "Uncountable nouns remain the priority",
+      status: "Strong",
+      targetAccuracy: 1,
+      priority: "Low",
+      notes: "Perfect Day 9 — 40/40 across a full English day",
     },
     // --- Topics first practised or flagged on Day 3 -------------------------
     {
@@ -1371,6 +1430,43 @@ export const seedData: TrackerData = {
       priority: "Low",
       notes: "Day 8 perfect",
     },
+    // --- Topics first practised on Day 9 -------------------------------------
+    {
+      id: "seed-t42",
+      subject: "English",
+      topic: "Subject-Verb Agreement",
+      status: "Strong",
+      targetAccuracy: 1,
+      priority: "Low",
+      notes: "Perfect — each/every, one-of, neither-nor",
+    },
+    {
+      id: "seed-t43",
+      subject: "English",
+      topic: "Tenses",
+      status: "Strong",
+      targetAccuracy: 1,
+      priority: "Low",
+      notes: "Perfect",
+    },
+    {
+      id: "seed-t44",
+      subject: "English",
+      topic: "Articles & Prepositions",
+      status: "Strong",
+      targetAccuracy: 1,
+      priority: "Low",
+      notes: "Perfect",
+    },
+    {
+      id: "seed-t45",
+      subject: "English",
+      topic: "Error Spotting",
+      status: "Strong",
+      targetAccuracy: 1,
+      priority: "Low",
+      notes: "Perfect at Moderate-Hard",
+    },
   ],
   sessions: [
     {
@@ -1466,6 +1562,17 @@ export const seedData: TrackerData = {
       keyStrength: "Profit & Loss, Time & Work, DI, Number Series",
       improvementArea: "English uncountable nouns",
       nextAction: "Day 8 completed; 39/40",
+    },
+    {
+      id: "seed-s9",
+      date: DAY_NINE,
+      sessionType: "Full Day",
+      plannedFocus:
+        "All rounds — Subject-Verb Agreement, Tenses, Articles & Prepositions, Error Spotting",
+      completed: true,
+      keyStrength: "All English topics",
+      improvementArea: "No errors",
+      nextAction: "Day 9 completed — 40/40",
     },
   ],
 };
